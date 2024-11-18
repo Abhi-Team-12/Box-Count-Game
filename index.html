@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="Box Count Game.css">
+    <title>Box Counting Game</title>
+
+</head>
+
+<body>
+    <h1 style="text-align: center;font-size: 60px;color: lawngreen;">Box Counting Game</h1>
+    <div>
+        <div class="color-box" style="background: #3498db;"></div>Blue
+        <div class="color-box" style="background: #e74c3c;margin-left: 30px;"></div>Red
+        <div class="color-box" style="background: #2ecc71;margin-left: 30px;"></div>Green
+        <div class="color-box" style="background: #f1c40f;margin-left: 30px;"></div>Yellow
+        <div class="color-box" style="background: #0ff153;margin-left: 30px;"></div>light Green
+        <div class="color-box" style="background: #f10f87;margin-left: 30px;"></div>Pink
+    </div>
+    <br>
+    <button id="play">Play</button>
+    <button id="stop">Stop</button>
+    <button id="clear">Refresh</button>
+    <br><br>
+    <div id="game"></div>
+
+    <script>
+        const playbtn = document.getElementById('play');
+        const stopbtn = document.getElementById('stop');
+        const clearbtn = document.getElementById('clear');
+        const gameContainer = document.getElementById('game');
+
+        const colors = ['#3498db', '#e74c3c', '#2ecc71', '#f1c40f', '#0ff153', '#f10f87'];
+        const colorsname = {
+            '#3498db': 'Blue',
+            '#e74c3c': 'Red',
+            '#2ecc71': 'Green',
+            '#f1c40f': 'Yellow',
+            '#0ff153': 'light Green',
+            '#f10f87': 'Pink'
+        };
+        let IntervalId;
+        let boxCount = {
+            '#3498db': 0,
+            '#e74c3c': 0,
+            '#2ecc71': 0,
+            '#f1c40f': 0,
+            '#0ff153': 0,
+            '#f10f87': 0
+        }
+
+        function getRendomColor() {
+            return colors[Math.floor(Math.random() * colors.length)];
+        }
+
+        function createBox() {
+            const box = document.createElement('div');
+            const color = getRendomColor();
+            box.classList.add('box')
+            box.style.backgroundColor = color;
+            box.style.top = `${Math.random() * (gameContainer.offsetHeight - 20)}px`;
+            box.style.left = `${Math.random() * (gameContainer.offsetWidth - 20)}px`;
+            gameContainer.appendChild(box);
+            boxCount[color]++;
+        }
+
+        function startGame() {
+            let boxCount = {
+                '#3498db': 0,
+                '#e74c3c': 0,
+                '#2ecc71': 0,
+                '#f1c40f': 0,
+                '#0ff153': 0,
+                '#f10f87': 0
+            }
+            IntervalId = setInterval(() => {
+                createBox();
+            }, 5)
+        }
+
+        function stopGame() {
+            clearInterval(IntervalId);
+            let maxColor = null;
+            let maxCount = 0;
+            for (let color in boxCount) {
+                if (boxCount[color] > maxCount) {
+                    maxCount = boxCount[color];
+                    maxColor = color;
+                }
+            }
+            // alert with counts
+            alert(`Blue:${boxCount['#3498db']}\n Red:${boxCount['#e74c3c']}\n Green:${boxCount['#2ecc71']}\n Yellow:${boxCount['#f1c40f']}\n light Green:${boxCount['#0ff153']}\n Pink:${boxCount['#f10f87']}  \n\n 
+            The Winner is : ${colorsname[maxColor]}!`);
+            // speech
+            const msg = new SpeechSynthesisUtterance(` The Winner is : ${colorsname[maxColor]}!`)
+
+            window.speechSynthesis.speak(msg);
+        }
+
+        function clearGame() {
+            gameContainer.innerHTML = '';
+        }
+
+        playbtn.addEventListener('click', startGame)
+        stopbtn.addEventListener('click', stopGame)
+        clearbtn.addEventListener('click', clearGame)
+    </script>
+</body>
+
+</html>
