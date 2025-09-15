@@ -63,6 +63,9 @@ h1 {
     border: 1px solid #fff9;
     z-index: 2;
 }
+.btn{
+    display:flex;
+    align-item:center;
 button {
     background: linear-gradient(135deg, #60fa88 0%, #16abe3 100%);
     color: #fff;
@@ -83,6 +86,15 @@ button:hover {
     transform: scale(1.18) rotate(-8deg);
     background: linear-gradient(135deg, #16abe3 70%, #60fa88 100%);
 }
+button i {
+    font-size: 24px;
+}
+@media (max-width: 700px) {
+    button i {
+        font-size: 16px;
+    }
+}
+
 #play { background: linear-gradient(135deg, #6beb52 0%, #16abe3 100%); }
 #stop { background: linear-gradient(135deg, #e67c7c 0%, #c90057 100%); }
 #clear { background: linear-gradient(135deg, #f7d358 0%, #fb7bff 100%); }
