@@ -66,7 +66,7 @@ h1 {
 .btn{
     display:flex;
     align-item:center;
-    justify-item:center;
+    justify-content:center;
 }
 button {
     background: linear-gradient(135deg, #60fa88 0%, #16abe3 100%);
